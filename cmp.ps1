@@ -28,16 +28,16 @@ catch {
 
 
 
-function global:prompt {
+# function global:prompt {
 
-    $prefix = "["+(Get-Date -format "MM-dd HH:mm:ss")+"]"
-    Write-Host $prefix -f yellow -nonewline
-    $tenant = " ("+($UserCredential.UserName -split '@')[1]+")"
-    Write-Host $tenant -f red -NoNewline
-    Write-Host (" PS "+ $pwd +">") -nonewline
-    return " "
+#     $prefix = "["+(Get-Date -format "MM-dd HH:mm:ss")+"]"
+#     Write-Host $prefix -f yellow -nonewline
+#     $tenant = " ("+($UserCredential.UserName -split '@')[1]+")"
+#     Write-Host $tenant -f red -NoNewline
+#     Write-Host (" PS "+ $pwd +">") -nonewline
+#     return " "
 
-}
+# }
 
 # $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://ps.compliance.protection.outlook.com/powershell-liveid/  -Credential $UserCredential -Authentication Basic -AllowRedirection
 # Import-PSSession $Session -DisableNameChecking
