@@ -13,19 +13,30 @@ try {
     Connect-SPOService -Url $url -Credential $UserCredential
     $global:tenant = " ("+($UserCredential.UserName -split '@')[1]+")"
     $global:o365Service = $global:o365Service + 'S'
+    
+    function prompt {
 
 
-    function global:prompt {
+        if ((Get-History).count -ge 1) {
+                $executionTime = ((Get-History)[-1].EndExecutionTime - (Get-History)[-1].StartExecutionTime).Totalmilliseconds
+                } 
+        else {
+              $executionTime = 0                
+             }
 
-        $prefix = "["+(Get-Date -format "MM'/'dd HH:mm:ss")+"] "
-        Write-Host $prefix -f yellow -nonewline
-        Write-Host $global:o365Service -f Green -NoNewline
-        Write-Host $global:tenant -f red -NoNewline
-        Write-Host (" PS "+ $pwd +">") -nonewline
+        $global:prefix = (Get-Date -format "MM'/'dd HH:mm:ss") + (" {0:#,0} ms " -f $executionTime)
+
+        Write-Host $global:prefix -f yellow -nonewline
+
+        if ($global:o365Service) {
+                Write-Host $global:o365Service -f Green -NoNewline
+                Write-Host $global:tenant -f red -NoNewline  
+        }
+
+        Write-Host (" "+$pwd +">") -nonewline
         return " "
     
     }
-
 }
 catch {
     Write-Host "Can't connect to SharePoint Online" -f r
